@@ -11,8 +11,7 @@ function! TagFullDepend()
         \ -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW '
   execute '!'.command
 endfunction
-" map <C-F10> :<C-u>call TagFullDepend()<CR>
-command! -nargs=0 TagFullDepend call TagFullDepend()
+command! -nargs=0 CtagsFullDepend call TagFullDepend()
 
 function! TagFileIncluded()
   let find_include = ''
@@ -38,5 +37,4 @@ function! TagFileIncluded()
   let remove_tmp = 'rm myincludeheaders'
   execute '!'.find_include.' && '.generate_ctags.' && '.remove_tmp
 endfunction
-" map <F10> :<C-u>call TagFileIncluded()<CR>
-command! -nargs=0 TagFileIncluded call TagFileIncluded()
+command! -nargs=0 CtagsFileIncluded call TagFileIncluded()
