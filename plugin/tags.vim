@@ -1,8 +1,7 @@
 function! TagFullDepend()
   let command = ''
   let command = '
-        \ls -R
-        \| grep ''\..*[ch]p*p*$''
+        \find . -regex ''\..*[ch]p*p*$''
         \| xargs gcc -M
         \| sed ''s/[\\ ]/\n/g''
         \| sed ''/^$/d;/\.o:[ \t]*$/d''
@@ -16,16 +15,14 @@ command! -nargs=0 CtagsFullDepend call TagFullDepend()
 function! TagFileIncluded()
   let find_include = ''
   let find_include = '
-        \ls -R
-        \| grep ''\..*[ch]p*p*$''
-        \| xargs sed -n ''/include/p''
+        \find . -regex ''\..*[ch]p*p*$''
+        \| xargs sed -n ''s/.*\(\#include.*[>"]\).*/\1/p''
         \| sed ''s/\#include//g;s/[>< ]//g''
         \| sort -u
         \ > myincludeheaders '
   let generate_ctags = ''
   let generate_ctags = '
-        \ls -R
-        \| grep ''\..*[ch]p*p*$''
+        \find . -regex ''\..*[ch]p*p*$''
         \| xargs gcc -M
         \| sed ''s/[\\ ]/\n/g''
         \| sed ''/^$/d;/\.o:[ \t]*$/d''
