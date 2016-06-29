@@ -1,5 +1,16 @@
-function! TagFullDepend()
-    let command = ''
+" =============================================================================
+" Author:         scps950707
+" Email:          scps950707@gmail.com
+" Created:        2016-06-30 02:47
+" Last Modified:  2016-06-30 02:47
+" Filename:       ctags.vim
+" =============================================================================
+
+let s:save_cpo = &cpo
+set cpo&vim
+
+
+function! ctags#FullDepend()
     let command = '
         \find . -regex ''.*\.[ch]p*p*$''
         \| xargs g++ -M
@@ -10,17 +21,14 @@ function! TagFullDepend()
         \ -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW '
     execute '!'.command
 endfunction
-command! -nargs=0 CtagsFullDepend call TagFullDepend()
 
-function! TagFileIncluded()
-    let find_include = ''
+function! ctags#FileIncluded()
     let find_include = '
         \find . -regex ''.*\.[ch]p*p*$''
         \| xargs sed -n ''s/.*\(\#include.*[>"]\).*/\1/p''
         \| sed ''s/\#include//g;s/[>< ]//g''
         \| sort -u
         \ > myincludeheaders '
-    let generate_ctags = ''
     let generate_ctags = '
         \find . -regex ''.*\.[ch]p*p*$''
         \| xargs g++ -M
@@ -30,8 +38,10 @@ function! TagFileIncluded()
         \| sort -u
         \| ctags -L - --sort=yes --c-kinds=defgpstux --fields=+iaS --extra=+q
         \ -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW '
-    let remove_tmp = ''
     let remove_tmp = 'rm myincludeheaders'
     execute '!'.find_include.' && '.generate_ctags.' && '.remove_tmp
 endfunction
-command! -nargs=0 CtagsFileIncluded call TagFileIncluded()
+
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
