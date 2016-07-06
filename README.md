@@ -11,7 +11,7 @@ defect:tags to large,so much deep or useless information
 
 command:
 ```sh
-find . -regex '.*\.[ch]p*p*$' | xargs g++ -M | sed 's/[\\ ]/\n/g' | sed '/^$/d;/\.o:[ \t]*$/d' | sort -u | ctags -L - --sort=yes --c-kinds=defgpstux --fields=+iaS --extra=+q -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW
+find . -regex '.*\.[ch]p*p*$' | xargs g++ -M | sed 's/[\\ ]/\n/g' | sed '/^$/d;/\.o:[ \t]*$/d' | sort -u | ctags -L - --sort=yes --c-kinds=defgpstux --fields=+liaS --extra=+q -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW
 ```
 
 
@@ -22,7 +22,7 @@ defect:maybe some informations are ignored
 command:
 ```sh
 find . -regex '.*\.[ch]p*p*$' | xargs sed -n 's/.*\(#include.*[>"]\).*/\1/p' | sed 's/#include//g;s/[>< ]//g' | sort -u > myheaders
-find . -regex '.*\.[ch]p*p*$' | xargs g++ -M | sed 's/[\\ ]/\n/g' | sed '/^$/d;/\.o:[ \t]*$/d' | grep -f myheaders | sort -u | ctags -L - --sort=yes --c-kinds=defgpstux --fields=+iaS --extra=+q -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW
+find . -regex '.*\.[ch]p*p*$' | xargs g++ -M | sed 's/[\\ ]/\n/g' | sed '/^$/d;/\.o:[ \t]*$/d' | grep -f myheaders | sort -u | ctags -L - --sort=yes --c-kinds=defgpstux --fields=+liaS --extra=+q -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW
 rm myheaders
 ```
 

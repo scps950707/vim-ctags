@@ -2,7 +2,7 @@
 " Author:         scps950707
 " Email:          scps950707@gmail.com
 " Created:        2016-06-30 02:47
-" Last Modified:  2016-06-30 02:47
+" Last Modified:  2016-07-06 18:37
 " Filename:       ctags.vim
 " =============================================================================
 
@@ -17,7 +17,7 @@ function! ctags#FullDepend()
         \| sed ''s/[\\ ]/\n/g''
         \| sed ''/^$/d;/\.o:[ \t]*$/d''
         \| sort -u
-        \| ctags -L - --sort=yes --c-kinds=defgpstux --fields=+iaS --extra=+q
+        \| ctags -L - --sort=yes --c-kinds=defgpstux --fields=+liaS --extra=+q
         \ -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW '
     execute '!'.command
 endfunction
@@ -36,7 +36,7 @@ function! ctags#FileIncluded()
         \| sed ''/^$/d;/\.o:[ \t]*$/d''
         \| grep -f myincludeheaders
         \| sort -u
-        \| ctags -L - --sort=yes --c-kinds=defgpstux --fields=+iaS --extra=+q
+        \| ctags -L - --sort=yes --c-kinds=defgpstux --fields=+liaS --extra=+q
         \ -I __attribute__,__attribute_malloc__,__attribute_pure__,__wur,__THROW '
     let remove_tmp = 'rm myincludeheaders'
     execute '!'.find_include.' && '.generate_ctags.' && '.remove_tmp
